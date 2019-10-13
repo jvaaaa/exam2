@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import socket,re,threading,time,os
+import socket,re,threading,time,os,requests
 # 引入模块
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
@@ -43,12 +43,17 @@ def client(sock,addr):
 					sock.send('-1'.encode('utf-8'))
 
 		elif re.match(r'URL\s\S+\s\S+',data):
-			f=re.match(r'URL\s(?P<key>\S+)\s(?P<url>\S+)',data)
-			try:
-				m=d[f.group('key')]
-				sock.send(m.encode('utf-8'))
-			except:
-				sock.send('获取URL大小我还不会'.encode('utf-8'))
+			if qwq==2:
+				f=re.match(r'URL\s(?P<key>\S+)\s(?P<url>\S+)',data)
+				try:
+					m=d[f.group('key')]
+					sock.send(m.encode('utf-8'))
+				except:
+					r=requests.get(f.group('url'))
+					sock.send(str(len(r.text)).encode('utf-8'))
+					d[f.group('key')]=str(len(r.text))
+			elif qwq==1:
+				sock.send(' '.encode('utf-8'))
 #检测客户端输入并反馈
 
 def kv_server(host='localhost',port=5678):
