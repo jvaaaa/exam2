@@ -48,7 +48,7 @@ def client(sock,addr):
 				m=d[f.group('key')]
 				sock.send(m.encode('utf-8'))
 			except:
-				sock.send('我还没做好'.encode('utf-8'))
+				sock.send('获取URL大小我还不会'.encode('utf-8'))
 #检测客户端输入并反馈
 
 def kv_server(host='localhost',port=5678):
