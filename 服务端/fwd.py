@@ -70,9 +70,9 @@ while True:
 	if re.match(r'kv_server$',x):
 		kv_server()
 		break
-	elif re.match(r'kv_server\s--host\ss>[\w\.]*\s--port\s\d*',x):
+	elif re.match(r'kv_server\s--host\s[\w\.]*\s--port\s\d*',x):
 		f=re.match(r'kv_server\s--host\s(?P<address>[\w\.]*)\s--port\s(?P<port>\d*)',x)
-		kv_client(f.group('address'),int(f.group('port')))
+		kv_server(f.group('address'),int(f.group('port')))
 		break
 	else:
 		print("未知的命令")
